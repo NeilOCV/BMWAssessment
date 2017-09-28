@@ -25,16 +25,19 @@ namespace BMWAssessmentWS
             folderSync.SourceFolder = strSourceFolder;
             return folderSync.SyncFolders();
         }
-        [WebMethod]
-        public List<string> GetAllDrivesOnTheServer()
-        {
-            List<string> result = new List<string>();
 
-            Overheads overheads = new Overheads();
-            result = overheads.GetAllDriveLetters();
-
-            return result;
-        }
+        //[WebMethod]
+        //public List<string> GetAllDrivesOnTheServer()
+        //{
+        //    Overheads overheads = new Overheads();
+        //    return overheads.GetAllDriveLetters();
+        //}
+        //[WebMethod]
+        //public List<string> GetAllFoldersForDrive(string drive)
+        //{
+        //    Overheads overheads = new Overheads();
+        //    return overheads.GetAllFoldersOnDrive(drive);
+        //}
 
     }
 }

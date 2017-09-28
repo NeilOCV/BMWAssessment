@@ -10,7 +10,10 @@ namespace BMWAssessmentWS
     {
         public string SourceFolder { get; set; }
         public string DestinationFolder { get; set; }
+        
         public string ID { get; set; }
+        List<FileStructure> lstDetailsOfFilesOnSource = new List<FileStructure>();
+        List<FileStructure> lstDetailsOfFilesOnDestination = new List<FileStructure>();
         /// <summary>
         /// Get ALL the children folders
         /// Stick 'em in a List and return said List to whomever wants it
@@ -56,11 +59,12 @@ namespace BMWAssessmentWS
         /// <summary>
         /// Compare what is and what is to be copied and what is to be deleted.
         /// </summary>
-        /// <param name="lstSource"></param>
-        /// <param name="lstDestination"></param>
         /// <returns></returns>
-        private string SyncFiles(List<FileStructure> lstSource, List<FileStructure> lstDestination)
+        private void SyncFiles()//(List<FileStructure> lstSource, List<FileStructure> lstDestination)
         {
+            List<FileStructure> lstSource = lstDetailsOfFilesOnSource;
+            List<FileStructure> lstDestination = lstDetailsOfFilesOnDestination;
+
             string result = string.Empty;
 
             List<FileStructure> filesToCopy = new List<FileStructure>();
@@ -88,7 +92,7 @@ namespace BMWAssessmentWS
             }
                      
 
-            return result;
+            //return result;
         }
         /// <summary>
         /// Get a list of files and folders in the source and destination directory directory
@@ -104,8 +108,7 @@ namespace BMWAssessmentWS
             List<string> allDestinationFiles = new List<string>();
             List<string> allDestinationDirectories = new List<string>();
 
-            List<FileStructure> lstDetailsOfFilesOnSource = new List<FileStructure>();
-            List<FileStructure> lstDetailsOfFilesOnDestination = new List<FileStructure>();
+            
 
             try
             {
@@ -215,7 +218,10 @@ namespace BMWAssessmentWS
                     
                 }
 
-                SyncFiles(lstDetailsOfFilesOnSource, lstDetailsOfFilesOnDestination);
+
+                System.Threading.Thread fileCopyThread = new System.Threading.Thread(SyncFiles);
+                fileCopyThread.Start();
+                
                 
                 #endregion
                 #endregion
