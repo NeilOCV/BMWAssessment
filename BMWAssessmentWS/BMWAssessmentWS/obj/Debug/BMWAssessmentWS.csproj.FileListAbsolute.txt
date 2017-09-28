@@ -1,0 +1,6 @@
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\bin\BMWAssessmentWS.dll.config
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\bin\BMWAssessmentWS.dll
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\bin\BMWAssessmentWS.pdb
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\obj\Debug\BMWAssessmentWS.csprojResolveAssemblyReference.cache
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\obj\Debug\BMWAssessmentWS.dll
+C:\Source\GitHub\BMWAssessmentWS\BMWAssessmentWS\obj\Debug\BMWAssessmentWS.pdb
