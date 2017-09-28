@@ -26,11 +26,12 @@ namespace BMWAssessmentWS
             return folderSync.SyncFolders();
         }
         [WebMethod]
-        public List<string> GetAllFolders()
+        public List<string> GetAllDrivesOnTheServer()
         {
             List<string> result = new List<string>();
 
-
+            Overheads overheads = new Overheads();
+            result = overheads.GetAllDriveLetters();
 
             return result;
         }
