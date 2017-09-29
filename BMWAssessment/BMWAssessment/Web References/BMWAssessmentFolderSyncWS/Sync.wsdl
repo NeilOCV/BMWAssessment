@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SetUpFolderSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strSourceFolder" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDestinationFolder" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUpFolderSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUpFolderSyncResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProgress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProgressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProgressResult" type="tns:Progress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Progress">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNumberOfFilesToCopy" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="FilesCopiedSoFar" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllThreads">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllThreadsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllThreadsResult" type="tns:ArrayOfFolderSync" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFolderSync">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FolderSync" nillable="true" type="tns:FolderSync" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FolderSync">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SourceFolder" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DestinationFolder" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SetUpFolderSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUpFolderSync" />
+  </wsdl:message>
+  <wsdl:message name="SetUpFolderSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUpFolderSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProgressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProgress" />
+  </wsdl:message>
+  <wsdl:message name="GetProgressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProgressResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllThreadsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllThreads" />
+  </wsdl:message>
+  <wsdl:message name="GetAllThreadsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllThreadsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SyncSoap">
+    <wsdl:operation name="SetUpFolderSync">
+      <wsdl:input message="tns:SetUpFolderSyncSoapIn" />
+      <wsdl:output message="tns:SetUpFolderSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgress">
+      <wsdl:input message="tns:GetProgressSoapIn" />
+      <wsdl:output message="tns:GetProgressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllThreads">
+      <wsdl:input message="tns:GetAllThreadsSoapIn" />
+      <wsdl:output message="tns:GetAllThreadsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SyncSoap" type="tns:SyncSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetUpFolderSync">
+      <soap:operation soapAction="http://tempuri.org/SetUpFolderSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgress">
+      <soap:operation soapAction="http://tempuri.org/GetProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllThreads">
+      <soap:operation soapAction="http://tempuri.org/GetAllThreads" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SyncSoap12" type="tns:SyncSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetUpFolderSync">
+      <soap12:operation soapAction="http://tempuri.org/SetUpFolderSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgress">
+      <soap12:operation soapAction="http://tempuri.org/GetProgress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllThreads">
+      <soap12:operation soapAction="http://tempuri.org/GetAllThreads" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sync">
+    <wsdl:port name="SyncSoap" binding="tns:SyncSoap">
+      <soap:address location="http://localhost:12762/Sync.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SyncSoap12" binding="tns:SyncSoap12">
+      <soap12:address location="http://localhost:12762/Sync.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

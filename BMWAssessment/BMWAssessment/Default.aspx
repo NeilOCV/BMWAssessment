@@ -1,10 +1,49 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BMWAssessment._Default" %>
 
+<%@ Register Src="~/UserControls/BarGraph.ascx" TagPrefix="uc1" TagName="BarGraph" %>
+
+
+
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+        <h1>Active Copy Threads On The Server</h1>
+        <p class="lead">In this jumbotron, you can see all the active copy threads that is running on the server</p>
+        <p>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <asp:GridView ID="grdActiveThreads" runat="server" OnRowDataBound="grdActiveThreads_RowDataBound">
+                        <Columns>
+                            <asp:TemplateField HeaderText="GUID ID">
+                                <ItemTemplate>
+                                    <asp:Label Text='<%#Bind("ID") %>' runat="server" ID="lblID" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Source">
+                                <ItemTemplate>
+                                    <asp:Label Text='<%#Bind("SourceFolder") %>' runat="server" ID="lblSource" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Destination" >
+                                <ItemTemplate>
+                                    <asp:Label Text='<%#Bind("DestinationFolder") %>' runat="server" ID="lblDestination" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Progress">
+                                <ItemTemplate>
+                                    <uc1:BarGraph runat="server" ID="ucBarGraph"  />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                        </Columns>
+                    </asp:GridView>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 

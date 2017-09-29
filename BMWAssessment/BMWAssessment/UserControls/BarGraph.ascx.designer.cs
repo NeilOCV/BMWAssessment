@@ -7,18 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BMWAssessment {
+namespace BMWAssessment.UserControls {
     
     
-    public partial class _Default {
+    public partial class BarGraph {
         
         /// <summary>
-        /// grdActiveThreads control.
+        /// pnlContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdActiveThreads;
+        protected global::System.Web.UI.WebControls.Panel pnlContainer;
+        
+        /// <summary>
+        /// pnlSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSlider;
     }
 }
