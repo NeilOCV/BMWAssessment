@@ -42,11 +42,20 @@ namespace BMWAssessment
                 using(BMWAssessmentFolderSyncWS.Sync sync=new BMWAssessmentFolderSyncWS.Sync())
                 {
                     BMWAssessmentFolderSyncWS.Progress progress = sync.GetProgress(lblID.Text);
-                    int progressPerc = (int)((progress.FilesCopiedSoFar * 100) / progress.TotalNumberOfFilesToCopy);
+                    int progressPerc = 100;
+                    if (progress.TotalNumberOfFilesToCopy > 0)
+                    {
+                        progressPerc = (int)((progress.FilesCopiedSoFar * 100) / progress.TotalNumberOfFilesToCopy);
+                    }
                     progressBar.Progress = progressPerc;
                 }
                 
             }
+        }
+
+        protected void tmrTimer_Tick(object sender, EventArgs e)
+        {
+            PopulateGrid();
         }
     }
 }

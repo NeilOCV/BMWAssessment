@@ -13,9 +13,9 @@
         <p>
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
-                    <asp:GridView ID="grdActiveThreads" runat="server" OnRowDataBound="grdActiveThreads_RowDataBound">
+                    <asp:GridView ID="grdActiveThreads" runat="server" OnRowDataBound="grdActiveThreads_RowDataBound" AutoGenerateColumns="false">
                         <Columns>
-                            <asp:TemplateField HeaderText="GUID ID">
+                            <asp:TemplateField HeaderText="GUID ID" Visible="false">
                                 <ItemTemplate>
                                     <asp:Label Text='<%#Bind("ID") %>' runat="server" ID="lblID" />
                                 </ItemTemplate>
@@ -42,14 +42,19 @@
                         </Columns>
                     </asp:GridView>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="tmrTimer" EventName="Tick" />
+                </Triggers>
             </asp:UpdatePanel>
         </p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
+            <h2>
+                <asp:Timer ID="tmrTimer" runat="server" Interval="1000" OnTick="tmrTimer_Tick">
+                </asp:Timer>
+                Getting started</h2>
             <p>
                 ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
