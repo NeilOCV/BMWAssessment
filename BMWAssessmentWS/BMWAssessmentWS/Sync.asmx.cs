@@ -31,13 +31,18 @@ namespace BMWAssessmentWS
         [WebMethod]
         public Progress GetProgress(string id)
         {
-            FolderSync sync=new FolderSync();
+            FolderSync sync = new FolderSync();
             var prog = from tb in AllSyncs
                        where tb.ID == id
                        select tb;
             if (prog.Count() > 0)
                 return prog.ToList()[0].CopyProgress;
             return null;
+        }
+        [WebMethod]
+        public List<FolderSync> GetAllThreads()
+        {
+            return AllSyncs;
         }
 
         //[WebMethod]
