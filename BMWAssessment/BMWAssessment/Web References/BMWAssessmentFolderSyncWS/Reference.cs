@@ -35,6 +35,10 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
         
         private System.Threading.SendOrPostCallback GetAllThreadsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetAllDrivesOnTheServerOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetAllChildrenDirectoriesOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -81,6 +85,12 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
         
         /// <remarks/>
         public event GetAllThreadsCompletedEventHandler GetAllThreadsCompleted;
+        
+        /// <remarks/>
+        public event GetAllDrivesOnTheServerCompletedEventHandler GetAllDrivesOnTheServerCompleted;
+        
+        /// <remarks/>
+        public event GetAllChildrenDirectoriesCompletedEventHandler GetAllChildrenDirectoriesCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetUpFolderSync", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -166,6 +176,62 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
             if ((this.GetAllThreadsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetAllThreadsCompleted(this, new GetAllThreadsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllDrivesOnTheServer", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string[] GetAllDrivesOnTheServer() {
+            object[] results = this.Invoke("GetAllDrivesOnTheServer", new object[0]);
+            return ((string[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAllDrivesOnTheServerAsync() {
+            this.GetAllDrivesOnTheServerAsync(null);
+        }
+        
+        /// <remarks/>
+        public void GetAllDrivesOnTheServerAsync(object userState) {
+            if ((this.GetAllDrivesOnTheServerOperationCompleted == null)) {
+                this.GetAllDrivesOnTheServerOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllDrivesOnTheServerOperationCompleted);
+            }
+            this.InvokeAsync("GetAllDrivesOnTheServer", new object[0], this.GetAllDrivesOnTheServerOperationCompleted, userState);
+        }
+        
+        private void OnGetAllDrivesOnTheServerOperationCompleted(object arg) {
+            if ((this.GetAllDrivesOnTheServerCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAllDrivesOnTheServerCompleted(this, new GetAllDrivesOnTheServerCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllChildrenDirectories", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string[] GetAllChildrenDirectories(string path) {
+            object[] results = this.Invoke("GetAllChildrenDirectories", new object[] {
+                        path});
+            return ((string[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAllChildrenDirectoriesAsync(string path) {
+            this.GetAllChildrenDirectoriesAsync(path, null);
+        }
+        
+        /// <remarks/>
+        public void GetAllChildrenDirectoriesAsync(string path, object userState) {
+            if ((this.GetAllChildrenDirectoriesOperationCompleted == null)) {
+                this.GetAllChildrenDirectoriesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllChildrenDirectoriesOperationCompleted);
+            }
+            this.InvokeAsync("GetAllChildrenDirectories", new object[] {
+                        path}, this.GetAllChildrenDirectoriesOperationCompleted, userState);
+        }
+        
+        private void OnGetAllChildrenDirectoriesOperationCompleted(object arg) {
+            if ((this.GetAllChildrenDirectoriesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAllChildrenDirectoriesCompleted(this, new GetAllChildrenDirectoriesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -340,6 +406,58 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((FolderSync[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void GetAllDrivesOnTheServerCompletedEventHandler(object sender, GetAllDrivesOnTheServerCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetAllDrivesOnTheServerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetAllDrivesOnTheServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void GetAllChildrenDirectoriesCompletedEventHandler(object sender, GetAllChildrenDirectoriesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetAllChildrenDirectoriesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetAllChildrenDirectoriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
             }
         }
     }

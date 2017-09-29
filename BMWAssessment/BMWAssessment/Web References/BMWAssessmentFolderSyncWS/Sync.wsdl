@@ -59,6 +59,35 @@
           <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetAllDrivesOnTheServer">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllDrivesOnTheServerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllDrivesOnTheServerResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllChildrenDirectories">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="path" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllChildrenDirectoriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllChildrenDirectoriesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="SetUpFolderSyncSoapIn">
@@ -79,6 +108,18 @@
   <wsdl:message name="GetAllThreadsSoapOut">
     <wsdl:part name="parameters" element="tns:GetAllThreadsResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAllDrivesOnTheServerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllDrivesOnTheServer" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDrivesOnTheServerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDrivesOnTheServerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllChildrenDirectoriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllChildrenDirectories" />
+  </wsdl:message>
+  <wsdl:message name="GetAllChildrenDirectoriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllChildrenDirectoriesResponse" />
+  </wsdl:message>
   <wsdl:portType name="SyncSoap">
     <wsdl:operation name="SetUpFolderSync">
       <wsdl:input message="tns:SetUpFolderSyncSoapIn" />
@@ -91,6 +132,14 @@
     <wsdl:operation name="GetAllThreads">
       <wsdl:input message="tns:GetAllThreadsSoapIn" />
       <wsdl:output message="tns:GetAllThreadsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDrivesOnTheServer">
+      <wsdl:input message="tns:GetAllDrivesOnTheServerSoapIn" />
+      <wsdl:output message="tns:GetAllDrivesOnTheServerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChildrenDirectories">
+      <wsdl:input message="tns:GetAllChildrenDirectoriesSoapIn" />
+      <wsdl:output message="tns:GetAllChildrenDirectoriesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SyncSoap" type="tns:SyncSoap">
@@ -122,6 +171,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllDrivesOnTheServer">
+      <soap:operation soapAction="http://tempuri.org/GetAllDrivesOnTheServer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChildrenDirectories">
+      <soap:operation soapAction="http://tempuri.org/GetAllChildrenDirectories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SyncSoap12" type="tns:SyncSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -145,6 +212,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllThreads">
       <soap12:operation soapAction="http://tempuri.org/GetAllThreads" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDrivesOnTheServer">
+      <soap12:operation soapAction="http://tempuri.org/GetAllDrivesOnTheServer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChildrenDirectories">
+      <soap12:operation soapAction="http://tempuri.org/GetAllChildrenDirectories" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

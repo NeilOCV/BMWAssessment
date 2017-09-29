@@ -45,18 +45,18 @@ namespace BMWAssessmentWS
             return AllSyncs;
         }
 
-        //[WebMethod]
-        //public List<string> GetAllDrivesOnTheServer()
-        //{
-        //    Overheads overheads = new Overheads();
-        //    return overheads.GetAllDriveLetters();
-        //}
-        //[WebMethod]
-        //public List<string> GetAllFoldersForDrive(string drive)
-        //{
-        //    Overheads overheads = new Overheads();
-        //    return overheads.GetAllFoldersOnDrive(drive);
-        //}
+        [WebMethod]
+        public List<string> GetAllDrivesOnTheServer()
+        {
+            Overheads overheads = new Overheads();
+            return overheads.GetAllDriveLetters();
+        }
+        [WebMethod]
+        public List<string> GetAllChildrenDirectories(string path)
+        {
+            Overheads overheads = new Overheads();
+            return overheads.GetAllChildrenDirectories(path);
+        }
 
     }
 }

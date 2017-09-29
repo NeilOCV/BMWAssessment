@@ -20,12 +20,12 @@ namespace BMWAssessmentWS
             }
             return result;
         }
-        public List<string> GetAllFoldersOnDrive(string drive)
+        public List<string> GetAllChildrenDirectories(string path)
         {
             List<string> directories = new List<string>();
             try
             {
-                directories = new List<string>(Directory.EnumerateDirectories(drive, "*.*", SearchOption.AllDirectories));
+                directories = new List<string>(Directory.EnumerateDirectories(path));//, "*.*", SearchOption.AllDirectories));
                 //string[] dirs= Directory.EnumerateDirectories(drive, "*.*", SearchOption.AllDirectories);
             }
             catch (UnauthorizedAccessException)
