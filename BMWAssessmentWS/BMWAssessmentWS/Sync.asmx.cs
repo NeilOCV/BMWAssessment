@@ -16,6 +16,7 @@ namespace BMWAssessmentWS
     // [System.Web.Script.Services.ScriptService]
     public class Sync : System.Web.Services.WebService
     {
+        static List<FolderSync> AllSyncs = new List<FolderSync>();
 
         [WebMethod]
         public string SetUpFolderSync(string strSourceFolder, string strDestinationFolder)
@@ -23,7 +24,20 @@ namespace BMWAssessmentWS
             FolderSync folderSync = new FolderSync();
             folderSync.DestinationFolder = strDestinationFolder;
             folderSync.SourceFolder = strSourceFolder;
-            return folderSync.SyncFolders();
+            folderSync.ID = folderSync.SyncFolders();
+            AllSyncs.Add(folderSync);
+            return folderSync.ID;
+        }
+        [WebMethod]
+        public Progress GetProgress(string id)
+        {
+            FolderSync sync=new FolderSync();
+            var prog = from tb in AllSyncs
+                       where tb.ID == id
+                       select tb;
+            if (prog.Count() > 0)
+                return prog.ToList()[0].CopyProgress;
+            return null;
         }
 
         //[WebMethod]

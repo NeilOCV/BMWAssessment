@@ -8,12 +8,30 @@ namespace BMWAssessmentWS
 {
     public class FolderSync
     {
+        private long FilesCopiedSoFar;
+        private long FilesToCopyCount = 0;
+        public Progress CopyProgress {
+            get
+            {
+                return GetProgress();
+            }
+        }
         public string SourceFolder { get; set; }
         public string DestinationFolder { get; set; }
-        
         public string ID { get; set; }
+        private Progress GetProgress()
+        {
+            Progress progress = new Progress();
+
+            progress.TotalNumberOfFilesToCopy = (int)FilesToCopyCount;
+            progress.FilesCopiedSoFar = (int)FilesCopiedSoFar;
+
+            return progress;
+        }
+        
         List<FileStructure> lstDetailsOfFilesOnSource = new List<FileStructure>();
         List<FileStructure> lstDetailsOfFilesOnDestination = new List<FileStructure>();
+        
         /// <summary>
         /// Get ALL the children folders
         /// Stick 'em in a List and return said List to whomever wants it
@@ -38,8 +56,7 @@ namespace BMWAssessmentWS
             {
                 using (BinaryReader bwread = new BinaryReader(fsread))
                 {
-                    using (FileStream fswrite = new FileStream
-                    (destination, FileMode.Create, FileAccess.Write, FileShare.None, array_length))
+                    using (FileStream fswrite = new FileStream(destination, FileMode.Create, FileAccess.Write, FileShare.None, array_length))
                     {
                         using (BinaryWriter bwwrite = new BinaryWriter(fswrite))
                         {
@@ -62,12 +79,14 @@ namespace BMWAssessmentWS
         /// <returns></returns>
         private void SyncFiles()//(List<FileStructure> lstSource, List<FileStructure> lstDestination)
         {
+            FilesToCopyCount = 0;
+            FilesCopiedSoFar = 0;
             List<FileStructure> lstSource = lstDetailsOfFilesOnSource;
             List<FileStructure> lstDestination = lstDetailsOfFilesOnDestination;
 
             string result = string.Empty;
 
-            List<FileStructure> filesToCopy = new List<FileStructure>();
+            List<FileToCopy> lstFilesToCopy = new List<FileToCopy>();
             //Get a list of the new files first
             foreach(FileStructure file in lstSource)
             {
@@ -77,7 +96,10 @@ namespace BMWAssessmentWS
                            select tb;
                 if(prog.Count()==0)
                 {
-                    CopyFile(file.Path, pathWeAreInterestedIn);
+                    FileToCopy filetocopy = new FileToCopy();
+                    filetocopy.Destination = pathWeAreInterestedIn;
+                    filetocopy.Source = file.Path;
+                    lstFilesToCopy.Add(filetocopy);
                 }
                 else
                 {
@@ -86,10 +108,20 @@ namespace BMWAssessmentWS
                     if((destinationInfo.Length!=sourceInfo.Length)||(sourceInfo.LastWriteTime != file.DateModified))
                     {
                         File.Delete(pathWeAreInterestedIn);
-                        CopyFile(file.Path, pathWeAreInterestedIn);
+                        FileToCopy filetocopy = new FileToCopy();
+                        filetocopy.Destination = pathWeAreInterestedIn;
+                        filetocopy.Source = file.Path;
+                        lstFilesToCopy.Add(filetocopy);
                     }
                 }
+                FilesToCopyCount = lstFilesToCopy.Count();
+                foreach (FileToCopy filetocopy in lstFilesToCopy)
+                {
+                    CopyFile(filetocopy.Source, filetocopy.Destination);
+                    FilesCopiedSoFar++;
+                }
             }
+
                      
 
             //return result;
@@ -217,7 +249,6 @@ namespace BMWAssessmentWS
                     
                     
                 }
-
 
                 System.Threading.Thread fileCopyThread = new System.Threading.Thread(SyncFiles);
                 fileCopyThread.Start();
