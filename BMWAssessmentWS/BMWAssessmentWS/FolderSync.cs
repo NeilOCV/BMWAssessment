@@ -23,8 +23,8 @@ namespace BMWAssessmentWS
         {
             Progress progress = new Progress();
 
-            progress.TotalNumberOfFilesToCopy = (int)FilesToCopyCount;
-            progress.FilesCopiedSoFar = (int)FilesCopiedSoFar;
+            progress.TotalNumberOfFilesToCopy = FilesToCopyCount;
+            progress.FilesCopiedSoFar = FilesCopiedSoFar;
 
             return progress;
         }
@@ -105,7 +105,7 @@ namespace BMWAssessmentWS
                 {
                     FileInfo destinationInfo = new FileInfo(pathWeAreInterestedIn);
                     FileInfo sourceInfo = new FileInfo(file.Path);
-                    if((destinationInfo.Length!=sourceInfo.Length)||(sourceInfo.LastWriteTime != file.DateModified))
+                    if ((destinationInfo.Length != sourceInfo.Length) || (sourceInfo.LastWriteTime != file.DateModified))
                     {
                         File.Delete(pathWeAreInterestedIn);
                         FileToCopy filetocopy = new FileToCopy();
@@ -115,15 +115,12 @@ namespace BMWAssessmentWS
                     }
                 }
                 FilesToCopyCount = lstFilesToCopy.Count();
-                foreach (FileToCopy filetocopy in lstFilesToCopy)
-                {
-                    CopyFile(filetocopy.Source, filetocopy.Destination);
-                    FilesCopiedSoFar++;
-                }
             }
-
-                     
-
+            foreach (FileToCopy filetocopy in lstFilesToCopy)
+            {
+                CopyFile(filetocopy.Source, filetocopy.Destination);
+                FilesCopiedSoFar++;
+            }
             //return result;
         }
         /// <summary>

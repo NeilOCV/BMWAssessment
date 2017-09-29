@@ -28,9 +28,8 @@ namespace BMWAssessmentWS
                 directories = new List<string>(Directory.EnumerateDirectories(drive, "*.*", SearchOption.AllDirectories));
                 //string[] dirs= Directory.EnumerateDirectories(drive, "*.*", SearchOption.AllDirectories);
             }
-            catch (UnauthorizedAccessException UAEx)
+            catch (UnauthorizedAccessException)
             {
-                string s = "!";
             }
             catch
             {

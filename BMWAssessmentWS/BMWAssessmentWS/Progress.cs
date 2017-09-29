@@ -7,7 +7,7 @@ namespace BMWAssessmentWS
 {
     public class Progress
     {
-        public int TotalNumberOfFilesToCopy { get; set; }
-        public int FilesCopiedSoFar { get; set; }
+        public long TotalNumberOfFilesToCopy { get; set; }
+        public long FilesCopiedSoFar { get; set; }
     }
 }
