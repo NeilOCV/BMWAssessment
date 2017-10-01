@@ -16,10 +16,16 @@ namespace BMWAssessment
             List<string> drives = ws.GetAllDrivesOnTheServer().ToList();
             foreach(string drive in drives)
             {
-                TreeNode node = new TreeNode();
-                node.Text = drive;
-                node.Value = drive;
-                tvSource.Nodes.Add(node);
+                TreeNode sourceNode = new TreeNode();
+                sourceNode.Text = drive;
+                sourceNode.Value = drive;
+                tvSource.Nodes.Add(sourceNode);
+
+                TreeNode destinationNode = new TreeNode();
+                destinationNode.Text = drive;
+                destinationNode.Value = drive;
+                tvDestination.Nodes.Add(destinationNode);
+                
             }
         }
         private void PopulateGrid()
@@ -47,9 +53,8 @@ namespace BMWAssessment
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
-            {
                 PageLoad();
-            }
+            
         }
 
         protected void grdActiveThreads_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -86,7 +91,9 @@ namespace BMWAssessment
         }
         protected void tvSource_SelectedNodeChanged(object sender, EventArgs e)
         {
+            tmrTimer.Enabled = false;
             string strPathClicked = tvSource.SelectedNode.Value;
+            txtSourcePath.Text = strPathClicked;
             TreeNode selectedNode = tvSource.SelectedNode;
             tvSource.SelectedNode.Expand();
             tvSource.SelectedNode.Select();
@@ -100,6 +107,40 @@ namespace BMWAssessment
                 node.Text = FolderNameOnly(subfolder);
                 selectedNode.ChildNodes.Add(node);
             }
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            tmrTimer.Enabled = true;
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void tvDestination_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            tmrTimer.Enabled = false;
+            string strPathClicked = tvDestination.SelectedNode.Value;
+            txtDestination.Text = strPathClicked;
+            TreeNode selectedNode = tvDestination.SelectedNode;
+            tvDestination.SelectedNode.Expand();
+            tvDestination.SelectedNode.Select();
+
+            BMWAssessmentFolderSyncWS.Sync ws = new BMWAssessmentFolderSyncWS.Sync();
+            List<string> subfolders = ws.GetAllChildrenDirectories(strPathClicked).ToList();
+            foreach (string subfolder in subfolders)
+            {
+                TreeNode node = new TreeNode();
+                node.Value = subfolder;
+                node.Text = FolderNameOnly(subfolder);
+                selectedNode.ChildNodes.Add(node);
+            }
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            BMWAssessmentFolderSyncWS.Sync ws = new BMWAssessmentFolderSyncWS.Sync();
+            ws.SetUpFolderSync(txtSourcePath.Text, txtDestination.Text);
+            tmrTimer.Enabled = true;
+            Response.Redirect(Request.RawUrl);
         }
     }
 }
