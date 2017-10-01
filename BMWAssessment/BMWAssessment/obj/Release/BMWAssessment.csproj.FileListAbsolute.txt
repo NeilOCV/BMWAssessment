@@ -52,3 +52,4 @@ C:\Source\GitHub\BMW\BMWAssessment\BMWAssessment\bin\Microsoft.Owin.Security.OAu
 C:\Source\GitHub\BMW\BMWAssessment\BMWAssessment\obj\Release\BMWAssessment.dll
 C:\Source\GitHub\BMW\BMWAssessment\BMWAssessment\obj\Release\BMWAssessment.pdb
 C:\Source\GitHub\BMW\BMWAssessment\BMWAssessment\obj\Release\BMWAssessment.XmlSerializers.dll
+C:\Source\GitHub\BMW\BMWAssessment\BMWAssessment\obj\Release\BMWAssessment.csprojResolveAssemblyReference.cache
