@@ -88,6 +88,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="KooWee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KooWeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KooWeeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="SetUpFolderSyncSoapIn">
@@ -120,6 +134,12 @@
   <wsdl:message name="GetAllChildrenDirectoriesSoapOut">
     <wsdl:part name="parameters" element="tns:GetAllChildrenDirectoriesResponse" />
   </wsdl:message>
+  <wsdl:message name="KooWeeSoapIn">
+    <wsdl:part name="parameters" element="tns:KooWee" />
+  </wsdl:message>
+  <wsdl:message name="KooWeeSoapOut">
+    <wsdl:part name="parameters" element="tns:KooWeeResponse" />
+  </wsdl:message>
   <wsdl:portType name="SyncSoap">
     <wsdl:operation name="SetUpFolderSync">
       <wsdl:input message="tns:SetUpFolderSyncSoapIn" />
@@ -140,6 +160,10 @@
     <wsdl:operation name="GetAllChildrenDirectories">
       <wsdl:input message="tns:GetAllChildrenDirectoriesSoapIn" />
       <wsdl:output message="tns:GetAllChildrenDirectoriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KooWee">
+      <wsdl:input message="tns:KooWeeSoapIn" />
+      <wsdl:output message="tns:KooWeeSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SyncSoap" type="tns:SyncSoap">
@@ -189,6 +213,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="KooWee">
+      <soap:operation soapAction="http://tempuri.org/KooWee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SyncSoap12" type="tns:SyncSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -230,6 +263,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllChildrenDirectories">
       <soap12:operation soapAction="http://tempuri.org/GetAllChildrenDirectories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KooWee">
+      <soap12:operation soapAction="http://tempuri.org/KooWee" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

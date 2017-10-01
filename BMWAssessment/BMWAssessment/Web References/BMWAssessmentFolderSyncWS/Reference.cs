@@ -39,6 +39,8 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
         
         private System.Threading.SendOrPostCallback GetAllChildrenDirectoriesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback KooWeeOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -91,6 +93,9 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
         
         /// <remarks/>
         public event GetAllChildrenDirectoriesCompletedEventHandler GetAllChildrenDirectoriesCompleted;
+        
+        /// <remarks/>
+        public event KooWeeCompletedEventHandler KooWeeCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetUpFolderSync", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -232,6 +237,35 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
             if ((this.GetAllChildrenDirectoriesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetAllChildrenDirectoriesCompleted(this, new GetAllChildrenDirectoriesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/KooWee", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string KooWee(string request) {
+            object[] results = this.Invoke("KooWee", new object[] {
+                        request});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void KooWeeAsync(string request) {
+            this.KooWeeAsync(request, null);
+        }
+        
+        /// <remarks/>
+        public void KooWeeAsync(string request, object userState) {
+            if ((this.KooWeeOperationCompleted == null)) {
+                this.KooWeeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnKooWeeOperationCompleted);
+            }
+            this.InvokeAsync("KooWee", new object[] {
+                        request}, this.KooWeeOperationCompleted, userState);
+        }
+        
+        private void OnKooWeeOperationCompleted(object arg) {
+            if ((this.KooWeeCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.KooWeeCompleted(this, new KooWeeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -458,6 +492,32 @@ namespace BMWAssessment.BMWAssessmentFolderSyncWS {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void KooWeeCompletedEventHandler(object sender, KooWeeCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class KooWeeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal KooWeeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

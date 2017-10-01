@@ -57,6 +57,21 @@ namespace BMWAssessmentWS
             Overheads overheads = new Overheads();
             return overheads.GetAllChildrenDirectories(path);
         }
+        /// <summary>
+        /// A very simple method to see if we are talking to the correct server.
+        /// This method plays a little game of Marco/Polo
+        /// but in real life, you can add all manner of things in here, like version numbers etc.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string KooWee(string request)
+        {
+            string response = string.Empty;
+            if (request.ToUpper().Trim() == "MARCO")
+                response = "Polo";
+            return response;
+        }
 
     }
 }
