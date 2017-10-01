@@ -49,7 +49,7 @@
             </asp:UpdatePanel>
         </p>
     </div>
-    <asp:Timer ID="tmrTimer" runat="server" Interval="1000" OnTick="tmrTimer_Tick" Enabled="False">
+    <asp:Timer ID="tmrTimer" runat="server" Interval="1000" OnTick="tmrTimer_Tick" Enabled="true">
     </asp:Timer>
 
 
@@ -84,10 +84,12 @@
                             <tr>
 
                                 <td style="width: 50%; border-right-color: black; border-right-style: solid; border-right-width: 1px; padding: 25px;">
+
                                     <asp:Panel runat="server" Height="200px" Width="100%" ScrollBars="Both">
-                                        <asp:TreeView ID="tvSource" runat="server" Height="200px" Width="100%"  CssClass="form-control" PathSeparator="/" ShowLines="True" OnSelectedNodeChanged="tvSource_SelectedNodeChanged">
+                                        <asp:TreeView ID="tvSource" runat="server" Height="200px" Width="100%" CssClass="form-control" PathSeparator="/" ShowLines="True" OnSelectedNodeChanged="tvSource_SelectedNodeChanged">
                                         </asp:TreeView>
                                     </asp:Panel>
+
                                 </td>
                                 <td style="padding: 25px;">
                                     <asp:ListBox ID="lstDestination" runat="server" CssClass="form-control">

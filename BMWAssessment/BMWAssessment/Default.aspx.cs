@@ -74,7 +74,7 @@ namespace BMWAssessment
 
         protected void tmrTimer_Tick(object sender, EventArgs e)
         {
-            //PopulateGrid();
+            PopulateGrid();
         }
         private string FolderNameOnly(string path)
         {
@@ -88,6 +88,9 @@ namespace BMWAssessment
         {
             string strPathClicked = tvSource.SelectedNode.Value;
             TreeNode selectedNode = tvSource.SelectedNode;
+            tvSource.SelectedNode.Expand();
+            tvSource.SelectedNode.Select();
+            
             BMWAssessmentFolderSyncWS.Sync ws = new BMWAssessmentFolderSyncWS.Sync();
             List<string> subfolders = ws.GetAllChildrenDirectories(strPathClicked).ToList();
             foreach (string subfolder in subfolders)
