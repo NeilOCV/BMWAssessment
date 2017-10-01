@@ -6,7 +6,6 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <link href="Content/Custom.css" rel="stylesheet" />
 
     <div class="jumbotron">
         <h1>Active Copy Threads On The Server</h1>
@@ -28,7 +27,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Destination">
+                            <asp:TemplateField HeaderText="Destination" >
                                 <ItemTemplate>
                                     <asp:Label Text='<%#Bind("DestinationFolder") %>' runat="server" ID="lblDestination" />
                                 </ItemTemplate>
@@ -36,7 +35,7 @@
 
                             <asp:TemplateField HeaderText="Progress">
                                 <ItemTemplate>
-                                    <uc1:BarGraph runat="server" ID="ucBarGraph" />
+                                    <uc1:BarGraph runat="server" ID="ucBarGraph"  />
                                 </ItemTemplate>
                             </asp:TemplateField>
 
@@ -49,62 +48,10 @@
             </asp:UpdatePanel>
         </p>
     </div>
-    <asp:Timer ID="tmrTimer" runat="server" Interval="1000" OnTick="tmrTimer_Tick" Enabled="False">
-    </asp:Timer>
-
-
-
-    <div>
-
-        <style type="text/css">
-            
-        </style>
-        <a href="#openModal">New Thread</a>
-
-        <div id="openModal" class="modalDialog">
-            <div style="width: 50%; height: 50%;">
-                <a href="#close" title="Close" class="close">X</a>
-
-                <h2>New Thread</h2>
-                <h3>Select the source and the destination</h3>
-                <h4>These folders are all relative to the server.  If the folder does not exist on the destination side, it will be created</h4>
-
-                <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
-
-                        <table style="width: 100%;">
-                            <tr>
-                                <td style="text-align: center">
-                                    <h4>Source</h4>
-                                </td>
-                                <td style="text-align: center">
-                                    <h4>Destination</h4>
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td style="width: 50%; border-right-color: black; border-right-style: solid; border-right-width: 1px; padding: 25px;">
-                                    <asp:Panel runat="server" Height="200px" Width="100%" ScrollBars="Both">
-                                        <asp:TreeView ID="tvSource" runat="server" Height="200px" Width="100%"  CssClass="form-control" PathSeparator="/" ShowLines="True" OnSelectedNodeChanged="tvSource_SelectedNodeChanged">
-                                        </asp:TreeView>
-                                    </asp:Panel>
-                                </td>
-                                <td style="padding: 25px;">
-                                    <asp:ListBox ID="lstDestination" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="text1" />
-                                        <asp:ListItem Text="text2" />
-                                    </asp:ListBox>
-                                </td>
-                            </tr>
-                        </table>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-
-                <asp:Button Text="text" runat="server" />
-            </div>
-        </div>
-
-
+    <asp:Timer ID="tmrTimer" runat="server" Interval="1000" OnTick="tmrTimer_Tick">
+                </asp:Timer>
+    <div class="Container">
+        <asp:Button Text="New Threaded Folder Sync Process" runat="server" CssClass="btn btn-danger" />
     </div>
 
 </asp:Content>

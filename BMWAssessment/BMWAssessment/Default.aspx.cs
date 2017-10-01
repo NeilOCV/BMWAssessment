@@ -9,31 +9,13 @@ namespace BMWAssessment
 {
     public partial class _Default : Page
     {
-        int numberOfFolders = 0;
-        private void PopulateTrees()
-        {
-            BMWAssessmentFolderSyncWS.Sync ws = new BMWAssessmentFolderSyncWS.Sync();
-            List<string> drives = ws.GetAllDrivesOnTheServer().ToList();
-            foreach(string drive in drives)
-            {
-                TreeNode node = new TreeNode();
-                node.Text = drive;
-                node.Value = drive;
-                tvSource.Nodes.Add(node);
-            }
-        }
         private void PopulateGrid()
         {
             BMWAssessmentFolderSyncWS.Sync sync = new BMWAssessmentFolderSyncWS.Sync();
             List<BMWAssessmentFolderSyncWS.FolderSync> folders = new List<BMWAssessmentFolderSyncWS.FolderSync>();
             folders = sync.GetAllThreads().ToList();
-            //Only update the grid if absolutely necessary.
-            if (numberOfFolders != folders.Count)
-            {
-                numberOfFolders = folders.Count;
-                grdActiveThreads.DataSource = folders;
-                grdActiveThreads.DataBind();
-            }
+            grdActiveThreads.DataSource = folders;
+            grdActiveThreads.DataBind();
 
         }
         /// <summary>
@@ -42,7 +24,6 @@ namespace BMWAssessment
         private void PageLoad()
         {
             PopulateGrid();
-            PopulateTrees();
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,29 +55,7 @@ namespace BMWAssessment
 
         protected void tmrTimer_Tick(object sender, EventArgs e)
         {
-            //PopulateGrid();
-        }
-        private string FolderNameOnly(string path)
-        {
-            string result = string.Empty;
-            string[] parts = path.Split('\\');
-            result = parts[parts.Length-1];
-            return result;
-
-        }
-        protected void tvSource_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            string strPathClicked = tvSource.SelectedNode.Value;
-            TreeNode selectedNode = tvSource.SelectedNode;
-            BMWAssessmentFolderSyncWS.Sync ws = new BMWAssessmentFolderSyncWS.Sync();
-            List<string> subfolders = ws.GetAllChildrenDirectories(strPathClicked).ToList();
-            foreach (string subfolder in subfolders)
-            {
-                TreeNode node = new TreeNode();
-                node.Value = subfolder;
-                node.Text = FolderNameOnly(subfolder);
-                selectedNode.ChildNodes.Add(node);
-            }
+            PopulateGrid();
         }
     }
 }
